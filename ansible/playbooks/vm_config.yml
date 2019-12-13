@@ -1,0 +1,24 @@
+  - name: Configure Node VM
+    hosts: azure
+    user: azureuser
+    become: yes
+
+    vars:
+      myResourceGroup: ansible
+      myVM: ansible-node
+
+    tasks:
+      - name: Install Various Packages
+        apt:
+          update_cache: yes
+          name: "{{ packages }}"
+        vars:
+          packages:
+          - libssl-dev
+          - libffi-dev
+          - python-dev
+          - python-pip
+
+      - name: Install Ansible for Azure
+        command: pip install ansible[azure]
+

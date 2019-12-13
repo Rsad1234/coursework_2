@@ -1,0 +1,19 @@
+- name: Open HTTP port #Script name
+  hosts: localhost #Host is local as the VM that runs this will edit a Node VM
+  connection: local
+  vars:
+    myResourceGroup: ansible #Resource group name
+    myNetworkSecurityGroup: ansible-node-nsg #Network security group name
+  tasks:
+    - name: Open Port 80 and 443
+      azure_rm_securitygroup:
+        resource_group: "{{ myResourceGroup }}"
+        name: "{{ myNetworkSecurityGroup }}"
+        rules:
+          - name: HTTP
+            protocol: Tcp
+            destination_port_range:
+              - 80
+              - 443
+            access: Allow
+            priority: 1002

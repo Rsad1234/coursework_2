@@ -1,0 +1,21 @@
+- name: Run Docker App on Node
+  hosts: azure
+  user: azureuser
+  become: yes
+  vars:
+    docker_id: rsadle200
+    docker_image: linux_tweet_app
+    docker_image_version: "1.0"
+    docker_container_name: linux_tweet_app
+    docker_container_port: "80"
+  tasks:
+  - name: Create docker container
+    docker_container:
+      name: "{{ docker_container_name }}"
+      image: "{{ docker_id + '/' + docker_image + ':' + docker_image_version }}"
+      auto_remove: yes
+      detach: yes
+      state: started
+      restart: yes
+      ports:
+        - "{{ docker_container_port + ':' + docker_container_port }}"
