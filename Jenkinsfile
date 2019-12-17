@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("Rsad1234/coursework_2:${env.BUILD_ID}")
+        app = docker.build("rsadle200/coursework_2:${env.BUILD_ID}")
     }
 
     stage('Test image') {
